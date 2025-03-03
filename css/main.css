@@ -1,0 +1,41 @@
+body {
+  background: #f7f7f7;
+  color: #262626;
+}
+
+.board-column {
+  box-shadow: 0 0 18px -14px black;
+  text-align: center;
+  padding: 10px;
+  margin: 6px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  border: 1px solid #c9c9c9;
+  overflow: hidden;
+}
+.board-column .castling {
+  padding-bottom: 10px;
+}
+.board-column p {
+  padding-top: 10px;
+  margin: 0;
+}
+.board-column input {
+  width: 2rem;
+  border-radius: 3px;
+  border: 1px solid #c9c9c9;
+}
+.board-column select {
+  border-radius: 3px;
+  border: 1px solid #c9c9c9;
+}
+
+#chessboard {
+  box-shadow: 0 0 10px -6px black;
+  border-radius: 4px;
+  width: 400px;
+  height: 433px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=main.css.map */

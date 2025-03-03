@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js"
+		integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script src="js/chess.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.board-wrap {
+			border: 2px solid #000; /* Add border to the board wrap */
+			padding: 10px;
+			border-radius: 5px;
+			position: relative; /* Added for notation positioning */
+		}
+		.info-column {
+			border: 2px solid #000; /* Add border to the info column */
+			padding: 10px;
+			border-radius: 5px;
+		}
+		.settings {
+			border: 1px solid #000; /* Add border to the settings */
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 10px;
+		}
+		#castling {
+			border: 1px solid #000; /* Add border to the castling section */
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 10px;
+		}
+		.dark-theme {
+			background-color: #333;
+			color: #fff;
+		}
+		.light-theme {
+			background-color: #fff;
+			color: #000;
+		}
+		.box {
+			border: 1px solid #000; /* Add border to the boxes */
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 10px;
+		}
+		.box:hover {
+			background-color: #f0f0f0; /* Add hover effect to the boxes */
+		}
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 40px; /* Reduced width for smaller toggle */
+			height: 24px; /* Reduced height for smaller toggle */
+		}
+
+		.switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			transition: .4s;
+			border-radius: 24px; /* Adjusted border radius */
+		}
+
+		.slider:before {
+			position: absolute;
+			content: "";
+			height: 20px; /* Reduced height for smaller toggle */
+			width: 20px; /* Reduced width for smaller toggle */
+			left: 2px; /* Adjusted position */
+			bottom: 2px; /* Adjusted position */
+			background-color: white;
+			transition: .4s;
+			border-radius: 50%;
+		}
+
+		input:checked + .slider {
+			background-color: #2196F3;
+		}
+
+		input:checked + .slider:before {
+			transform: translateX(16px); /* Adjusted translation for smaller toggle */
+		}
+	</style>
+	<script>
+		$(document).ready(function() {
+			$('#theme-toggle').change(function() {
+				if ($(this).is(':checked')) {
+					$('body').removeClass('light-theme').addClass('dark-theme');
+				} else {
+					$('body').removeClass('dark-theme').addClass('light-theme');
+				}
+			});
+		});
+	</script>
+</head>
+
+<body class="light-theme">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<div class="box">
+					<h2>Chess opening of Grandmasters</h2>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 board-wrap">
+				<div class="board-column">
+					<canvas id="chessboard" width="800" height="866"></canvas>
+					<div class="settings form">
+						<select id="color" class="form-control mb-3">
+							<option value="w">White to move</option>
+							<option value="b">Black to move</option>
+						</select>
+						<div id="castling" class="mb-3">
+							<p>Castling Ability</p>
+							<div class="form-check form-check-inline">
+								<input type="checkbox" class="form-check-input" name="Q" id="Q" checked>
+								<label class="form-check-label" for="Q">White queenside</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="checkbox" class="form-check-input" name="K" id="K" checked>
+								<label class="form-check-label" for="K">White kingside</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="checkbox" class="form-check-input" name="q" id="q" checked>
+								<label class="form-check-label" for="q">Black queenside</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="checkbox" class="form-check-input" name="k" id="k" checked>
+								<label class="form-check-label" for="k">Black kingside</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="theme-toggle">Toggle Dark/Light Theme</label>
+							<label class="switch">
+								<input type="checkbox" id="theme-toggle">
+								<span class="slider round"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 info-column">
+				<div class="board-column">
+					<h2>Moves from here:</h2>
+					<div class="box">
+						<div class="row" id="next-moves">
+							<!--common next moves-->
+						</div>
+					</div>
+					<br>
+					<h2>Highest rated games:</h2>
+					<div class="box">
+						<div class="row" id="highest-games">
+							<!-- highest rated games from here -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
